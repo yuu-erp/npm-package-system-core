@@ -1,0 +1,49 @@
+{
+  "name": "@metanode/system-core",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup src/index.ts --watch --format esm,cjs --dts",
+    "build": "tsup src/index.ts --format esm,cjs --dts --minify",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "tsc-alias": "^1.8.16",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "@types/node": "^24.5.2",
+    "esbuild": "^0.25.10",
+    "eslint": "^9.35.0",
+    "globals": "^16.4.0",
+    "jiti": "^2.5.1",
+    "tsup": "^8.5.0",
+    "typescript-eslint": "^8.44.0"
+  }
+}
