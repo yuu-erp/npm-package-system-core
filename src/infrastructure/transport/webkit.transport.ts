@@ -1,7 +1,7 @@
-import { ITransportPort } from '~/domain/repositories'
+import type { ITransportPort } from '~/domain'
 import { InternalServerErrorException } from '~/exceptions/exceptions'
-import { TransportMessage } from '~/types'
-import { Webkit } from '~/types/env'
+import type { TransportMessage } from '~/types'
+import type { Webkit } from '~/types/env'
 
 export class WebkitTransport implements ITransportPort {
   private readonly webkit: Webkit | undefined

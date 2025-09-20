@@ -1,6 +1,6 @@
-import { ITransportPort } from '~/domain/repositories'
-import { ElectronAPITransport, FindSDKTransport, WebkitTransport } from '.'
+import type { ITransportPort } from '~/domain'
 import { InternalServerErrorException } from '~/exceptions/exceptions'
+import { ElectronAPITransport, FindSDKTransport, WebkitTransport } from '.'
 
 export class TransportFactory {
   static create(): ITransportPort {

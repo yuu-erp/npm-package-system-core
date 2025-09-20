@@ -1,7 +1,7 @@
-import { ITransportPort } from '~/domain/repositories'
+import type { ITransportPort } from '~/domain'
 import { InternalServerErrorException } from '~/exceptions/exceptions'
-import { TransportMessage } from '~/types'
-import { ElectronAPI } from '~/types/env'
+import type { TransportMessage } from '~/types'
+import type { ElectronAPI } from '~/types/env'
 
 const CHANNELS = {
   TO_NATIVE: 'native',

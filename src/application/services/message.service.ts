@@ -1,9 +1,7 @@
-import { MessageEntity } from '~/domain/entities'
-import { ITransportPort } from '~/domain/repositories'
-import { ChunkMessageProcessor } from '~/domain/services'
-import { Command, Response } from '~/domain/types'
-import { IEmitterPort } from '~/infrastructure/events/emitter.port'
-import { TransportMessage } from '~/types'
+import type { IEmitterPort } from '~/infrastructure/events/emitter.port'
+import type { Command, ITransportPort, MessageEntity, Response } from '~/domain'
+import { ChunkMessageProcessor } from '~/domain'
+import type { TransportMessage } from '~/types'
 
 export class MessageService {
   private pendingCommand = new Map<string, (data: unknown) => void>()
