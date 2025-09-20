@@ -14,10 +14,14 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "tsup src/index.ts --watch --format esm,cjs --dts",
     "start": "tsx ./src/index.ts",
     "build": "tsup src/index.ts --format esm,cjs --dts --minify",
+    "release": "npm run build && npm version patch && npm publish --access public",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",

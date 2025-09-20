@@ -28,3 +28,48 @@ src/
 │   └── message.utils.ts           # encodeMessage, decodeMessage
 │
 └── index.ts                       # entry point (export public API)
+
+
+         +----------------------+
+         |   Application Layer  |
+         |----------------------|
+ Request | MessageHandler       | Response
+-------->| ChunkProcessor       |<--------
+         | Service (send/recv)  |
+         +----------------------+
+                   |
+                   v
+         +----------------------+
+         | Infrastructure Layer |
+         |----------------------|
+         | PostMessageTransport |
+         | ElectronTransport    |
+         | FinSDKTransport      |
+         +----------------------+
+                   |
+                   v
+         +----------------------+
+         |     External Env     |
+         |----------------------|
+         |   window.postMessage |
+         |   electronAPI        |
+         |   finsdk             |
+         +----------------------+
+
+         +----------------------+
+         |      Domain Layer    |
+         |----------------------|
+         | Entities:            |
+         |  - MessageEntity     |
+         |  - NormalMessage     |
+         |  - LargeMessage      |
+         | Types:               |
+         |  - Command           |
+         |  - Request/Response  |
+         |  - DTOs              |
+         +----------------------+
+
+
+npm version patch   # 1.0.0 → 1.0.1
+npm version minor   # 1.0.0 → 1.1.0
+npm version major   # 1.0.0 → 2.0.0

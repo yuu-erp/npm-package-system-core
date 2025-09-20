@@ -1,4 +1,4 @@
-import { LargeMessage } from '../entities/message.entity'
+import { LargeMessage } from '../entities'
 
 /**
  * ChunkMessageProcessor

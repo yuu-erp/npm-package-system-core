@@ -1,10 +1,11 @@
 import mitt, { Emitter as MittEmitter, EventType, Handler } from 'mitt'
-
+import type { IEmitterPort } from './emitter.port'
 /**
  * Emitter wrapper để quản lý event trong hệ thống
  * Có thể thay mitt bằng lib khác mà không ảnh hưởng core
  */
-export class Emitter<Events extends Record<EventType, unknown>> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Emitter<Events extends Record<EventType, unknown> = Record<string, any>> implements IEmitterPort {
   private emitter: MittEmitter<Events>
 
   constructor() {

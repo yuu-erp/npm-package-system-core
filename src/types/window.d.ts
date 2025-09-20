@@ -2,9 +2,11 @@ export {}
 
 declare global {
   interface Window {
+    appId?: string
     electronAPI?: {
       sendMessage: (channel: string, payload: unknown) => Promise<unknown>
-      onMessage?: (channel: string, callback: (payload: unknown) => void) => void
+      onMessage?: (channel: string, callback: (payload: MessageEvent) => void) => void
+      windowId?: string
     }
     finsdk?: {
       call: () => Promise<unknown>
