@@ -3,13 +3,10 @@ import { ITransportPort } from '~/domain/repositories'
 import { Command, Response } from '~/domain/types'
 
 export class FindSDKTransport implements ITransportPort {
-  send<T extends Command>(payload: TransportMessage): Promise<Response<T>> {
+  async send<T extends Command>(payload: TransportMessage): Promise<Response<T>> {
+    console.log('[FindSDKTransport] - SEND :', payload)
     throw new Error('Method not implemented.')
   }
-  on<T extends Command>(command: T, callback: (data: Response<T>) => Promise<void>): void {
-    throw new Error('Method not implemented.')
-  }
-
   onMessage(callback: (event: MessageEvent) => void): void {
     window.addEventListener('message', callback)
   }

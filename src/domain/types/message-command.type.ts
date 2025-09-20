@@ -17,7 +17,7 @@ export interface CommandDefinitions {
 
 // Request/Response types
 export type GetAllWalletReq = unknown
-export type GetAllWalletRep = unknown
+export type GetAllWalletRep = { address: string }[]
 
 export type ConnectNodeReq = {
   wallets: { address: string }[]
