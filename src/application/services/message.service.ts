@@ -51,7 +51,7 @@ export class MessageService {
         resolve(data as Response<T>)
         this.pendingCommand.delete(commandID)
       })
-
+      console.log('[MessageService] - PAYLOAD :', payload)
       try {
         const serialized = JSON.stringify(payload)
 
