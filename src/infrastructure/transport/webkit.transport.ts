@@ -1,14 +1,14 @@
 import { ITransportPort } from '~/domain/repositories'
 import { InternalServerErrorException } from '~/exceptions/exceptions'
 import { TransportMessage } from '~/types'
-import { FindSDK } from '~/types/env'
+import { Webkit } from '~/types/env'
 
-export class FindSDKTransport implements ITransportPort {
-  private readonly findSDK: FindSDK | undefined
+export class WebkitTransport implements ITransportPort {
+  private readonly webkit: Webkit | undefined
   constructor() {
-    this.findSDK = this.getFindSDK()
+    this.webkit = this.getWebkit()
   }
-  private getFindSDK(): FindSDK | undefined {
+  private getWebkit(): Webkit | undefined {
     if (
       typeof window === 'undefined' ||
       typeof window.finsdk === 'undefined' ||
@@ -16,11 +16,12 @@ export class FindSDKTransport implements ITransportPort {
     ) {
       return undefined
     }
-    return window.finsdk
+    return window.webkit
   }
+
   async send(payload: TransportMessage): Promise<void> {
-    if (!this.findSDK) throw new InternalServerErrorException('FINSDK is not available or not properly initialized')
-    this.findSDK.call(payload)
+    if (!this.webkit) throw new InternalServerErrorException('Webkit is not available or not properly initialized')
+    this.webkit.messageHandlers.callbackHandler.postMessage(payload)
   }
 
   onMessage(callback: (event: TransportMessage) => void): void {

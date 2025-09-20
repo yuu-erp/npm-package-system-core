@@ -1,7 +1,6 @@
-import { TransportMessage } from '../entities'
-import { Command, Response } from '../types'
+import { TransportMessage } from '~/types'
 
 export interface ITransportPort {
-  send<T extends Command>(payload: TransportMessage): Promise<Response<T>>
-  onMessage(callback: (event: MessageEvent) => void): void
+  send(payload: TransportMessage): Promise<void>
+  onMessage(callback: (event: TransportMessage) => void): void
 }

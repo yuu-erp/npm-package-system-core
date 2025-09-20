@@ -1,8 +1,9 @@
-import { MessageEntity, TransportMessage } from '~/domain/entities'
+import { MessageEntity } from '~/domain/entities'
 import { ITransportPort } from '~/domain/repositories'
 import { ChunkMessageProcessor } from '~/domain/services'
 import { Command, Response } from '~/domain/types'
 import { IEmitterPort } from '~/infrastructure/events/emitter.port'
+import { TransportMessage } from '~/types'
 
 export class MessageService {
   private pendingCommand = new Map<string, (data: unknown) => void>()
@@ -28,7 +29,7 @@ export class MessageService {
   }
 
   /**
-   * Gửi request tới native/backend
+   * Gửi request tới native
    */
   public async send<T extends Command>(payload: MessageEntity<T>): Promise<Response<T>> {
     return new Promise<Response<T>>((resolve, reject) => {
@@ -59,14 +60,14 @@ export class MessageService {
         if (serialized.length > 24_000) {
           const chunks = this.chunkMessageProcessor.split(serialized, payload.command)
           chunks.forEach((chunkMsg) => {
-            this.transport.send<T>(chunkMsg).catch(reject)
+            this.transport.send(chunkMsg).catch(reject)
           })
         } else {
           const normalMessage: TransportMessage = {
             type: 'normal',
             data: serialized
           }
-          this.transport.send<T>(normalMessage).catch(reject)
+          this.transport.send(normalMessage).catch(reject)
         }
       } catch (err) {
         this.pendingCommand.delete(commandID)
@@ -75,7 +76,7 @@ export class MessageService {
     })
   }
 
-  private handleMessage(event: MessageEvent) {
+  private handleMessage(event: TransportMessage) {
     console.log(event)
   }
 
