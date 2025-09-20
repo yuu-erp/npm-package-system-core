@@ -16,10 +16,10 @@ export interface CommandDefinitions {
 }
 
 // Request/Response types
-export type GetAllWalletReq = unknown
-export type GetAllWalletRep = { address: string }[]
+type GetAllWalletReq = unknown
+type GetAllWalletRep = { address: string }[]
 
-export type ConnectNodeReq = {
+type ConnectNodeReq = {
   wallets: { address: string }[]
   node: {
     ip: string
@@ -28,7 +28,7 @@ export type ConnectNodeReq = {
   storageAddress?: string
   storageHost?: string
 }
-export type ConnectNodeRep = unknown
+type ConnectNodeRep = unknown
 
-export type DeleteProfileByIdReq = { id: Id }
-export type DeleteProfileByIdRep = unknown
+type DeleteProfileByIdReq = { id: Id }
+type DeleteProfileByIdRep = unknown
