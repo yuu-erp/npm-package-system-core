@@ -1,3 +1,4 @@
+// Định nghĩa type alias thay vì interface để phù hợp hơn với cấu trúc dữ liệu đơn giản
 export interface NormalizedException {
   message: string
   code: string
@@ -13,11 +14,11 @@ export interface NormalizedException {
    */
   metadata?: Record<string, unknown>
 }
-
+// Lớp trừu tượng ExceptionBase
 export abstract class ExceptionBase extends Error {
   abstract code: string
   readonly correlationId: string
-
+  readonly cause?: unknown
   /**
    * @param {string} message
    * @param {ObjectLiteral} [metadata={}]
@@ -26,25 +27,36 @@ export abstract class ExceptionBase extends Error {
    * in application's log files. Only include non-sensitive
    * info that may help with debugging.
    */
-  constructor(
-    readonly message: string,
-    readonly metadata?: Record<string, unknown>
-  ) {
+  constructor(message: string, metadata?: Record<string, unknown>) {
     super(message)
+    this.name = this.constructor.name // Gán tên lớp để dễ nhận diện
     Error.captureStackTrace(this, this.constructor)
-    const ctx = {
-      requestId: '1'
-    }
-    this.correlationId = ctx.requestId
+
+    // Lấy correlationId từ context hoặc tạo mới nếu không có
+    this.correlationId = ExceptionBase.getCorrelationId()
+    this.metadata = metadata
   }
 
+  // Thuộc tính metadata để lưu trữ thông tin bổ sung
+  readonly metadata?: Record<string, unknown>
+
+  // Phương thức tĩnh để lấy hoặc tạo correlationId
+  private static getCorrelationId(): string {
+    // Trong thực tế, lấy từ request context hoặc tạo UUID
+    return 'request-id-' + Date.now() // Ví dụ đơn giản, thay bằng UUID trong thực tế
+  }
+
+  /**
+   * Chuyển đổi ngoại lệ thành định dạng chuẩn hóa
+   * @returns Đối tượng NormalizedException
+   */
   toJSON(): NormalizedException {
     return {
       message: this.message,
       code: this.code,
-      stack: this.stack,
       correlationId: this.correlationId,
-      cause: JSON.stringify(this.cause),
+      stack: this.stack,
+      cause: this.cause ? JSON.stringify(this.cause) : undefined,
       metadata: this.metadata
     }
   }

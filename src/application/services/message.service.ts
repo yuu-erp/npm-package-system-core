@@ -1,6 +1,6 @@
-import type { IEmitterPort } from '~/infrastructure/events/emitter.port'
 import type { Command, ITransportPort, MessageEntity, Response } from '~/domain'
 import { ChunkMessageProcessor } from '~/domain'
+import type { IEmitterPort } from '~/infrastructure'
 import type { TransportMessage } from '~/types'
 
 export class MessageService {
@@ -76,6 +76,10 @@ export class MessageService {
 
   private handleMessage(event: TransportMessage) {
     console.log(event)
+    const type = event.type
+    if (type === 'large') {
+      const mergedata = this.chunkMessageProcessor.merge(event)
+    }
   }
 
   private getAppId() {

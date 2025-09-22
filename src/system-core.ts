@@ -1,9 +1,6 @@
-import { MessageService } from './application/services/message.service'
-import { ITransportPort } from './domain/repositories'
-import { ChunkMessageProcessor } from './domain/services'
-import { Emitter } from './infrastructure/events/emitter'
-import { IEmitterPort } from './infrastructure/events/emitter.port'
-import { TransportFactory } from './infrastructure/transport'
+import { MessageService } from './application'
+import { ChunkMessageProcessor, ITransportPort } from './domain'
+import { Emitter, TransportFactory, type IEmitterPort } from './infrastructure'
 
 /**
  * SystemCore - singleton entrypoint cho React app
@@ -14,9 +11,9 @@ import { TransportFactory } from './infrastructure/transport'
  */
 export class SystemCore {
   private static instance: SystemCore | null = null
-  private transport: ITransportPort
-  private emitter: IEmitterPort
-  private chunkMessageProcessor: ChunkMessageProcessor
+  private readonly transport: ITransportPort
+  private readonly emitter: IEmitterPort
+  private readonly chunkMessageProcessor: ChunkMessageProcessor
 
   messageService: MessageService
   constructor() {
